@@ -1,5 +1,6 @@
 package com.cdrussell.casterio.room
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -42,7 +43,10 @@ class MainActivity : AppCompatActivity() {
         taskList.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         taskList.adapter = taskListAdapter
 
-        refreshTaskList() //manually refreshing the list from the db
+        taskDao.getAll().observe(this, Observer<List<Task>> {
+            it?.forEach { taskListAdapter.addTask(it) }
+        })
+
     }
 
     private fun addTask() {
@@ -57,16 +61,8 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             taskDao.insert(task)
-            refreshTaskList() //manually refreshing the list from the db
+
         }
     }
 
-    private fun refreshTaskList() {
-        thread {
-            val tasks = taskDao.getAll() //background thread
-            runOnUiThread {
-                tasks.forEach { taskListAdapter.addTask(it) } //UI Thread
-            }
-        }
-    }
 }
