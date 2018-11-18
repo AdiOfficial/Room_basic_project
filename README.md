@@ -40,6 +40,13 @@ Customising the names of tables and columns
 - Column names can be also customised by adding @ColumnInfo(name = "someName") to the properties of the Entity class
 
 
+Creating Data Access object
 
+-In order to interact with the database Room uses the Data Access Object pattern
+- DAO is an object which serves as a gateway between the database and the rest of the app. Interaction operations such as read or write
+will go through DAO object
+- DAO can be defined as an interface or abstract class
+- Room will generate the necessary object at compile time
+-
 
 
