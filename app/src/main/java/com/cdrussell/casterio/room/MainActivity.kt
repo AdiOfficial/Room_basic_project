@@ -9,11 +9,13 @@ import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskListAdapter: TaskListAdapter
     private lateinit var database: AppDatabase
+    private lateinit var taskDao: TaskDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         database = AppDatabase.getInstance(this)
-        val dao: TaskDao = database.taskDao()
+        taskDao = database.taskDao()
 
         addTaskButton.setOnClickListener {
             addTask()
@@ -51,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         val task = Task(title = title)
 
-        taskListAdapter.addTask(task)
+        thread {
+            taskDao.insert(task)
+        }
     }
 }
