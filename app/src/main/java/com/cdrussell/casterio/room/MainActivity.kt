@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         taskListAdapter = TaskListAdapter()
         taskList.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         taskList.adapter = taskListAdapter
+
+        refreshTaskList() //manually refreshing the list from the db
     }
 
     private fun addTask() {
@@ -55,6 +57,16 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             taskDao.insert(task)
+            refreshTaskList() //manually refreshing the list from the db
+        }
+    }
+
+    private fun refreshTaskList() {
+        thread {
+            val tasks = taskDao.getAll() //background thread
+            runOnUiThread {
+                tasks.forEach { taskListAdapter.addTask(it) } //UI Thread
+            }
         }
     }
 }
