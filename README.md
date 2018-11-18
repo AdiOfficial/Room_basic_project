@@ -31,6 +31,15 @@ Defining an entity
 - Val should be changed to var because Room needs to generate and work with setters.
 - Register the entity in the DataBase file
 
+Customising the names of tables and columns
+
+- Room will create the table name as specified in the Entity class name.
+- After building the project the Room generates the file with the Databasename_Impl.
+- There we can see the tables that the Room created
+- To customise the table name, specify the name in the brackets at @Entity(tableName = "CustomTableName")
+- Column names can be also customised by adding @ColumnInfo(name = "someName") to the properties of the Entity class
+
+
 
 
 
