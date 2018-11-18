@@ -47,6 +47,8 @@ Creating Data Access object
 will go through DAO object
 - DAO can be defined as an interface or abstract class
 - Room will generate the necessary object at compile time
--
+- In database class make abstract function to return the DAO object.
+- Instantiate dao object from the database in onCreate in MainActivity
+
 
 
