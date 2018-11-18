@@ -6,9 +6,8 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 
 @Database(
-        version = 1, entities = [
-    // list DB entities
-]
+        version = 1,
+        entities = [Task::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 
