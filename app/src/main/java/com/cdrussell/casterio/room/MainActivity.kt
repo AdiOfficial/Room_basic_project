@@ -21,13 +21,14 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         database = AppDatabase.getInstance(this)
+        val dao: TaskDao = database.taskDao()
 
         addTaskButton.setOnClickListener {
             addTask()
         }
-        
+
         taskTitleInput.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-            if(actionId == IME_ACTION_DONE) {
+            if (actionId == IME_ACTION_DONE) {
                 addTask()
                 taskTitleInput.setText("")
                 return@OnEditorActionListener true
