@@ -15,5 +15,9 @@ Creation of the database
 - Specify the version number. Everytime changing the database, change the number of the version. 
 Otherwise will get runtime exception.
 - Define the entities, after defining the version
+- Make sure the database is a singletone instance
+- When creating the database we shuld use application context
+- Create a property of the database and get its instance in the onCreate method of MainActivity
+- In order to compile the app we need to add at least one entity. 
 
 
